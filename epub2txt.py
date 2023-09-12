@@ -1,16 +1,26 @@
-
-# Install the necessary libraries
-#!pip install ebooklib
-#!pip install bs4
-
 import ebooklib
 from ebooklib import epub
 from bs4 import BeautifulSoup
 import os
+import subprocess
+
+requirements_file = 'requirements.txt'
+
+def install_requirements(requirements_file):
+    try:
+        subprocess.check_call(['pip', 'install', '-r', requirements_file])
+        print('Dependencies installed successfully.')
+    except subprocess.CalledProcessError:
+        print('Error while installing dependencies.')
+
+if __name__ == '__main__':
+    # Call the function to install dependencies
+    install_requirements(requirements_file)
 
 
-epub_directory = '/content/borgesEpub'
-txt_directory = '/content/borgesTxt'
+
+epub_directory = 'input_dir'
+txt_directory = 'output_dir'
 
 def extract_text_from_epub(epub_path):
     book = epub.read_epub(epub_path)
